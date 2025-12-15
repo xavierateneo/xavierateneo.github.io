@@ -12,7 +12,9 @@
 
     :root {
       --xu-blue: #0b5ed7;           /* Xavier primary blue */
+      --xu-blue-hover: #0a4fb8;
       --xu-blue-soft: #e7f0ff;
+      --xu-blue-soft-hover: #d4e4ff;
       --bg-light: #f4f7fb;          /* Canvas-like background */
       --bg-card: #ffffff;
       --bg-card-soft: #f8fafc;
@@ -20,12 +22,15 @@
       --text-muted: #6b7280;
       --radius-lg: 20px;            /* Canvas rounded cards */
     }
-
     @media (prefers-color-scheme: dark) {
       :root {
+        --xu-blue: #3b82f6;
+        --xu-blue-hover: #2563eb;
+        --xu-blue-soft: rgba(59, 130, 246, 0.15);
+        --xu-blue-soft-hover: rgba(59, 130, 246, 0.25);
         --bg-light: #0f172a;
-        --bg-card: #020617;
-        --bg-card-soft: #020617;
+        --bg-card: #1e293b;
+        --bg-card-soft: #1e293b;
         --text-main: #e5e7eb;
         --text-muted: #9ca3af;
       }
