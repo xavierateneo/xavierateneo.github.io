@@ -40,10 +40,19 @@
       text-align: center;
     }
 
-    .logo {
-      max-width: 120px;
-      margin-bottom: 16px;
+   .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px;
     }
+
+    .logo {
+      max-width: 260px;   /* prevents oversized logo */
+      width: 100%;
+      height: auto;       /* keeps aspect ratio */
+      display: block;
+      }
 
     h1 {
       font-size: 1.4rem;
