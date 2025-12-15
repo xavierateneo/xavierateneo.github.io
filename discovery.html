@@ -1,22 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Select your user type to login to Canvas</title>
-    <link rel="stylesheet" href="buttons.css">
-    <link rel="stylesheet" href="discovery.css">
-  </head>
-  <body>
-  <div class="content">
-    <div class="boxbox">
-        <img src="logo.png" />
-        <h3>Please select your user type:</h3>
-        <div class="buttonbox">
-            <p><a class="pure-button pure-button-primary" href="https://canvas.instructure.com/login/saml">Student</a></p>
-            <p><a class="pure-button pure-button-primary" href="https://canvas.instructure.com/login/saml">Teacher/Staff</a></p>
-            <p><a class="pure-button" href="https://canvas.instructure.com/login/canvas">Guardian of a Student</a></p>
-        </div>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canvas Login</title>
+
+  <style>
+    :root {
+      --primary: #0f6cbf;
+      --secondary: #f5f7fa;
+      --text-dark: #1f2937;
+      --text-light: #6b7280;
+      --card-radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #e8f0fe, #ffffff);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .logo {
+      max-width: 120px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    .login-option {
+      display: block;
+      text-decoration: none;
+      background: var(--secondary);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+    }
+
+    .login-option:hover {
+      border-color: var(--primary);
+      background: #eef5ff;
+    }
+
+    .login-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--text-dark);
+    }
+
+    .login-desc {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 4px;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+
+      .login-option {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Optional logo -->
+    <img src="logo.png" alt="University Logo" class="logo"
+
+    <h1>Log in to Canvas</h1>
+    <p>Select your account type to continue</p>
+
+    <!-- Employee Login -->
+    <a href="https://xavierateneo.instructure.com//login/saml/204"
+       class="login-option">
+      <div class="login-title">Faculty & Employees</div>
+      <div class="login-desc">Use your @xu.edu.ph Google account</div>
+    </a>
+
+    <!-- Student Login -->
+    <a href="https://xavierateneo.instructure.com//login/saml/205"
+       class="login-option">
+      <div class="login-title">Students</div>
+      <div class="login-desc">Use your @my.xu.edu.ph Google account</div>
+    </a>
+
+    <footer>
+      © Xavier University • Canvas LMS
+    </footer>
   </div>
-  </body>
+
+</body>
 </html>
