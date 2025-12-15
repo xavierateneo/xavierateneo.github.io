@@ -3,162 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Canvas Login | Xavier University</title>
+  <title>Canvas Login</title>
 
   <style>
-    /* ==============================
-       Xavier University – Canvas UI
-       ============================== */
-
     :root {
-      --xu-blue: #0b5ed7;           /* Xavier primary blue */
-      --xu-blue-hover: #0a4fb8;
-      --xu-blue-soft: #e7f0ff;
-      --xu-blue-soft-hover: #d4e4ff;
-      --bg-light: #f4f7fb;          /* Canvas-like background */
-      --bg-card: #ffffff;
-      --bg-card-soft: #f8fafc;
-      --text-main: #1f2937;
-      --text-muted: #6b7280;
-      --radius-lg: 20px;            /* Canvas rounded cards */
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --xu-blue: #3b82f6;
-        --xu-blue-hover: #2563eb;
-        --xu-blue-soft: rgba(59, 130, 246, 0.15);
-        --xu-blue-soft-hover: rgba(59, 130, 246, 0.25);
-        --bg-light: #0f172a;
-        --bg-card: #1e293b;
-        --bg-card-soft: #1e293b;
-        --text-main: #e5e7eb;
-        --text-muted: #9ca3af;
-      }
+      --primary: #0f6cbf;
+      --secondary: #f5f7fa;
+      --text-dark: #1f2937;
+      --text-light: #6b7280;
+      --card-radius: 14px;
     }
 
     * {
       box-sizing: border-box;
-      font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     body {
       margin: 0;
-      background: var(--bg-light);
-      min-height: 100vh;
+      background: linear-gradient(135deg, #e8f0fe, #ffffff);
+      color: var(--text-dark);
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       padding: 16px;
     }
 
-    /* Canvas embedded-safe container */
-    .canvas-container {
+    .container {
       width: 100%;
-      max-width: 460px;
-      background: var(--bg-card);
-      border-radius: var(--radius-lg);
-      padding: 32px 28px 28px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+      max-width: 420px;
+      background: #ffffff;
+      border-radius: var(--card-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 24px;
       text-align: center;
     }
 
-    /* Logo */
-    .logo-wrapper {
+   .logo-wrapper {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      align-items: center;
+      margin-bottom: 18px;
     }
 
     .logo {
-      max-width: 260px;
+      max-width: 260px;   /* prevents oversized logo */
       width: 100%;
-      height: auto;
+      height: auto;       /* keeps aspect ratio */
       display: block;
-    }
+      }
 
-    /* Headings */
     h1 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin: 0 0 8px;
-      color: var(--text-main);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
     }
 
-    .subtitle {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 28px;
+    p {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
     }
 
-    /* Login cards */
     .login-option {
       display: block;
       text-decoration: none;
-      background: var(--bg-card-soft);
-      border-radius: 16px;
-      padding: 18px 16px;
-      margin-bottom: 16px;
+      background: var(--secondary);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
       border: 2px solid transparent;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.25s ease;
     }
 
     .login-option:hover {
-      border-color: var(--xu-blue);
-      background: var(--xu-blue-soft);
+      border-color: var(--primary);
+      background: #eef5ff;
     }
 
     .login-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--text-main);
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--text-dark);
     }
 
     .login-desc {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      font-size: 0.85rem;
+      color: var(--text-light);
+      margin-top: 4px;
     }
 
     footer {
-      margin-top: 24px;
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: var(--text-light);
     }
 
-    /* Mobile fine-tuning */
-    @media (max-width: 420px) {
-      .canvas-container {
-        padding: 28px 22px;
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.2rem;
       }
 
-      h1 {
-        font-size: 1.4rem;
+      .login-option {
+        padding: 14px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="canvas-container">
 
+
+
+  <div class="container">
+    <!-- Optional logo -->
     <div class="logo-wrapper">
-      <!-- Replace with official XU logo asset -->
-      <img src="logo.png"
-           alt="Xavier University – Ateneo de Cagayan"
-           class="logo" />
+    <img
+      src="logo.png"
+      alt="Xavier University Logo"
+      class="logo"
+    />
     </div>
 
-    <h1>Log in to Canvas</h1>
-    <div class="subtitle">Select your account type to continue</div>
+    <h1>Log in to XU eLearn </h1>
+    <p>Select your account type to continue</p>
 
-    <!-- Faculty & Employees -->
+    <!-- Employee Login -->
     <a href="https://xavierateneo.instructure.com//login/saml/204"
        class="login-option">
-      <div class="login-title">Faculty &amp; Employees</div>
+      <div class="login-title">Faculty & Employees</div>
       <div class="login-desc">Use your @xu.edu.ph Google account</div>
     </a>
 
-    <!-- Students -->
+    <!-- Student Login -->
     <a href="https://xavierateneo.instructure.com//login/saml/205"
        class="login-option">
       <div class="login-title">Students</div>
@@ -166,11 +143,9 @@
     </a>
 
     <footer>
-      © Xavier University – Ateneo de Cagayan · Canvas LMS
+      © Xavier University - Ateneo de Cagayan • Canvas LMS
     </footer>
-
   </div>
 
 </body>
 </html>
-
