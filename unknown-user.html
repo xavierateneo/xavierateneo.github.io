@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Not Found | XU eLearn</title>
+  <style>
+    :root {
+      --primary: #283971;
+      --secondary: #f0f2f7;
+      --text-dark: #1f2937;
+      --text-light: #64748b;
+      --error-red: #dc2626;
+      --error-light: #fee2e2;
+      --card-radius: 14px;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #e8f0fe, #ffffff);
+      color: var(--text-dark);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+    .container {
+      width: 100%;
+      max-width: 520px;
+      background: #283971;
+      border-radius: var(--card-radius);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      padding: 28px 24px 24px;
+      text-align: center;
+    }
+    /* Tablet adjustments */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 480px;
+        padding: 24px 20px;
+      }
+    }
+    /* Small mobile adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 22px 18px 20px;
+        border-radius: 12px;
+      }
+    }
+    /* Very small screens */
+    @media (max-width: 360px) {
+      .container {
+        padding: 20px 16px 18px;
+        border-radius: 10px;
+      }
+    }
+    .logo-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .logo {
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    @media (max-width: 480px) {
+      .logo {
+        max-width: 220px;
+      }
+    }
+    @media (max-width: 360px) {
+      .logo {
+        max-width: 200px;
+      }
+    }
+    .alert-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      background: rgba(220, 38, 38, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .alert-icon svg {
+      width: 28px;
+      height: 28px;
+      color: #fca5a5;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+    .message {
+      font-size: 0.95rem;
+      color: #d1d5e0;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+      .message {
+        font-size: 0.9rem;
+      }
+    }
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+      .message {
+        font-size: 0.85rem;
+      }
+    }
+    .info-box {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .info-box h2 {
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 0 0 10px;
+      color: #ffffff;
+    }
+    .info-box ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #d1d5e0;
+      font-size: 0.88rem;
+    }
+    .info-box li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .info-box strong {
+      color: #ffffff;
+    }
+    @media (max-width: 480px) {
+      .info-box {
+        padding: 16px;
+        border-radius: 10px;
+      }
+      .info-box h2 {
+        font-size: 0.95rem;
+      }
+      .info-box ul {
+        font-size: 0.85rem;
+      }
+    }
+    @media (max-width: 360px) {
+      .info-box {
+        padding: 14px;
+      }
+      .info-box h2 {
+        font-size: 0.9rem;
+      }
+      .info-box ul {
+        font-size: 0.82rem;
+        padding-left: 18px;
+      }
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .btn {
+      flex: 1;
+      min-width: 140px;
+      display: inline-block;
+      text-decoration: none;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: all 0.25s ease;
+      border: 2px solid transparent;
+    }
+    @media (max-width: 480px) {
+      .btn {
+        padding: 12px 18px;
+        font-size: 0.88rem;
+      }
+    }
+    @media (max-width: 360px) {
+      .btn {
+        padding: 11px 16px;
+        font-size: 0.85rem;
+      }
+    }
+    .btn-primary {
+      background: #ffffff;
+      color: #283971;
+    }
+    .btn-primary:hover {
+      background: #f5f7fa;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #ffffff;
+    }
+    footer {
+      margin-top: 24px;
+      font-size: 0.75rem;
+      color: #d1d5e0;
+    }
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Tablet adjustments */
+    @media (max-width: 768px) {
+      .container {
+        max-width: 480px;
+        padding: 24px 20px;
+      }
+    }
+    /* Small mobile adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 22px 18px 20px;
+        border-radius: 12px;
+      }
+      h1 {
+        font-size: 1.3rem;
+      }
+      .message {
+        font-size: 0.9rem;
+      }
+      .logo {
+        max-width: 220px;
+      }
+      .info-box {
+        padding: 16px;
+        border-radius: 10px;
+      }
+      .info-box h2 {
+        font-size: 0.95rem;
+      }
+      .info-box ul {
+        font-size: 0.85rem;
+      }
+      .button-group {
+        flex-direction: column;
+      }
+      .btn {
+        width: 100%;
+        padding: 12px 18px;
+        font-size: 0.88rem;
+      }
+      footer {
+        font-size: 0.72rem;
+      }
+    }
+    /* Very small screens */
+    @media (max-width: 360px) {
+      .container {
+        padding: 20px 16px 18px;
+        border-radius: 10px;
+      }
+      h1 {
+        font-size: 1.2rem;
+      }
+      .message {
+        font-size: 0.85rem;
+      }
+      .logo {
+        max-width: 200px;
+      }
+      .info-box {
+        padding: 14px;
+      }
+      .info-box h2 {
+        font-size: 0.9rem;
+      }
+      .info-box ul {
+        font-size: 0.82rem;
+        padding-left: 18px;
+      }
+      .btn {
+        padding: 11px 16px;
+        font-size: 0.85rem;
+      }
+      footer {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-wrapper">
+      <img src="xu-logo-stacked.png"
+           alt="Xavier University Logo"
+           class="logo" />
+    </div>
+
+    <div class="alert-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+    </div>
+
+    <h1>Account Not Found</h1>
+    <p class="message">
+      Your Google account was authenticated successfully, but we couldn't find a matching Canvas account in our system.
+    </p>
+
+    <div class="info-box">
+      <h2>What does this mean?</h2>
+      <ul>
+        <li>Your <strong>Google account is valid</strong>, but it's not linked to a Canvas account yet</li>
+        <li>You may be a <strong>new student or employee</strong> whose Canvas account hasn't been created</li>
+        <li>You might be using the <strong>wrong account type</strong> (Faculty vs. Student login)</li>
+      </ul>
+    </div>
+
+    <div class="info-box">
+      <h2>What should you do?</h2>
+      <ul>
+        <li><strong>New students:</strong> Your Canvas account will be created within 24-48 hours of enrollment</li>
+        <li><strong>New employees:</strong> Contact XU CISO to activate your Canvas account</li>
+        <li><strong>Current users:</strong> Make sure you're using the correct login option for your account type</li>
+      </ul>
+    </div>
+
+    <div class="button-group">
+      <a href="https://xavierateneo.instructure.com/login" class="btn btn-primary">
+        Try Different Login
+      </a>
+      <a href="mailto:cisohelpdesk@xu.edu.ph" class="btn btn-secondary">
+        Contact IT Support
+      </a>
+    </div>
+
+    <footer>
+      Need help? Email <a href="cisohelpdesk@xu.edu.ph">cisohelpdesk@xu.edu.ph</a><br>
+      © Xavier University - Ateneo de Cagayan • Canvas LMS
+    </footer>
+  </div>
+</body>
+</html>
