@@ -85,13 +85,16 @@
       display: inline-block;
       margin-top: 10px;
       color: #ffffff;
-      text-decoration: underline;
+      text-decoration: none;
       font-size: 0.85rem;
-      opacity: 0.9;
-      transition: opacity 0.2s;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15); /* Lighter background for better contrast */
+      transition: background 0.2s, transform 0.2s;
     }
     .old-platform-link:hover {
-      opacity: 1;
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
     }
     footer {
       margin-top: 20px;
@@ -145,8 +148,8 @@
     </a>
 
     <!-- Old eLearn Link -->
-    <a href="https://archive-elearn.xu.edu.ph" class="old-platform-link">
-      Access the Old eLearn Platform Here
+    <a href="https://archive-elearn.xu.edu.ph" class="old-platform-link" target="_blank" rel="noopener noreferrer">
+      Access the old eLearn platform ↗
     </a>
     
     <footer>
