@@ -35,7 +35,7 @@
       padding: 24px;
       text-align: center;
     }
-   .logo-wrapper {
+    .logo-wrapper {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -46,7 +46,7 @@
       width: 100%;
       height: auto;       /* keeps aspect ratio */
       display: block;
-      }
+    }
     h1 {
       font-size: 1.4rem;
       margin-bottom: 8px;
@@ -81,10 +81,24 @@
       color: #64748b;
       margin-top: 4px;
     }
+    .old-platform-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #ffffff;
+      text-decoration: underline;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      transition: opacity 0.2s;
+    }
+    .old-platform-link:hover {
+      opacity: 1;
+    }
     footer {
       margin-top: 20px;
       font-size: 0.75rem;
       color: #d1d5e0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 15px;
     }
     @media (max-width: 360px) {
       h1 {
@@ -98,33 +112,41 @@
 </head>
 <body>
   <div class="container">
-    <!-- Optional logo -->
+    <!-- Logo section -->
     <div class="logo-wrapper">
-    <img
-      src="xu-logo-stacked.png"
-      alt="Xavier University Logo"
-      class="logo"
-    />
+      <img
+        src="xu-logo-stacked.png"
+        alt="Xavier University Logo"
+        class="logo"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+      />
+      <div style="display:none; color: white; font-weight: bold; font-size: 1.5rem;">XAVIER ATENEO</div>
     </div>
-    <h1>Log in to XU eLearn </h1>
+
+    <h1>Log in to XU eLearn</h1>
     <p>Select your account type to continue</p>
+
     <!-- Employee Login -->
-    <a href="https://xavierateneo.instructure.com/login/saml/204"
-       class="login-option">
+    <a href="https://xavierateneo.instructure.com/login/saml/204" class="login-option">
       <div class="login-title">Faculty & Staff</div>
       <div class="login-desc">Use your @xu.edu.ph Google account</div>
     </a>
+
     <!-- Student Login -->
-    <a href="https://xavierateneo.instructure.com/login/saml/205"
-       class="login-option">
+    <a href="https://xavierateneo.instructure.com/login/saml/205" class="login-option">
       <div class="login-title">Students</div>
       <div class="login-desc">Use your @my.xu.edu.ph Google account</div>
     </a>
+
     <!-- External Users Login -->
-    <a href="https://xavierateneo.instructure.com/login/canvas"
-       class="login-option">
+    <a href="https://xavierateneo.instructure.com/login/canvas" class="login-option">
       <div class="login-title">External Users</div>
       <div class="login-desc">Use your Canvas login</div>
+    </a>
+
+    <!-- Old eLearn Link -->
+    <a href="https://archive-elearn.xu.edu.ph" class="old-platform-link">
+      Access the Old eLearn Platform Here
     </a>
     
     <footer>
