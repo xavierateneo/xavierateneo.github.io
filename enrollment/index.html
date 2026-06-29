@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enrollment Portal — Xavier University</title>
+  <meta name="description" content="Xavier University Enrollment Portal — select your role to be directed to the correct system." />
+
+  <!-- Google Fonts: Libre Baskerville (display) + Source Sans 3 (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ─────────────────────────────────────────
+       Design tokens
+       ──────────────────────────────────────────
+       WCAG AA pairs (4.5:1 for normal text):
+         --primary (#002F6C) on white            ≈ 16 :1 ✓
+         --text-dark (#0F1923) on white          ≈ 18 :1 ✓
+         --text-mid (#3D4A5C) on white           ≈  8 :1 ✓
+         --accent-ink (#7A5900) on white         ≈  5.8:1 ✓  ← gold text on cards
+         --accent-light (#D4AD3A) on navy        ≈  7 :1 ✓  ← decorative header only
+         --disabled-text (#566074) on #ECEEF4    ≈  4.9:1 ✓  ← disabled card text
+         white 80% on --primary                  ≈  8 :1 ✓  ← footer
+         white 65% on --primary (subtitle)       ≈  6 :1 ✓  ← large text threshold
+    ───────────────────────────────────────── */
+    :root {
+      /* Brand */
+      --primary:        #002F6C;
+      --primary-hover:  #003D8A;
+
+      /* Accent — two roles:
+         --accent / --accent-light : decorative only (on navy bg, not body text)
+         --accent-ink              : all gold TEXT on light backgrounds            */
+      --accent:         #C4972A;
+      --accent-light:   #D4AD3A;
+      --accent-ink:     #7A5900;   /* darkened bronze-gold — 5.8:1 on white ✓ */
+
+      /* Surfaces */
+      --bg:             #F4F6FA;
+      --card-bg:        #FFFFFF;
+      --card-border:    rgba(0, 47, 108, 0.09);
+      --disabled-bg:    #ECEEF4;
+      --disabled-border:#B8BDD0;
+      --disabled-text:  #566074;   /* 4.9:1 on --disabled-bg ✓ */
+
+      /* Typography */
+      --text-dark:      #0F1923;
+      --text-mid:       #3D4A5C;
+
+      /* Type stacks */
+      --font-display: 'Libre Baskerville', Georgia, serif;
+      --font-body:    'Source Sans 3', system-ui, sans-serif;
+
+      /* Radii / shadows / easing */
+      --radius:      14px;
+      --shadow:      0 2px 8px  rgba(0, 47, 108, 0.08),
+                     0 8px 24px rgba(0, 47, 108, 0.05);
+      --shadow-up:   0 6px 20px rgba(0, 47, 108, 0.14),
+                     0 18px 44px rgba(0, 47, 108, 0.09);
+      --ease:        cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    /* ─────────────────────────────────────────
+       Reset & base
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─────────────────────────────────────────
+       Skip link
+    ───────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--accent);    /* gold bg */
+      color: var(--text-dark);      /* dark text — 6.4:1 on gold ✓ */
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0 var(--radius) var(--radius);
+      text-decoration: none;
+      z-index: 999;
+      transition: top 0.2s;
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ─────────────────────────────────────────
+       Logo bar (white strip at top)
+    ───────────────────────────────────────── */
+    .logo-bar {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem 2rem;
+      border-bottom: 1px solid rgba(0, 47, 108, 0.10);
+    }
+
+    .xu-logo {
+      height: 54px;      /* intrinsic aspect: 2000×567 ≈ 3.53:1 → width ~190px */
+      width: auto;
+      display: block;
+    }
+
+    /* ─────────────────────────────────────────
+       Navy hero banner
+    ───────────────────────────────────────── */
+    .site-header {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 2.5rem 2rem 2.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle diagonal crosshatch texture */
+    .site-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 28px,
+        rgba(255,255,255,0.025) 28px,
+        rgba(255,255,255,0.025) 29px
+      );
+      pointer-events: none;
+    }
+
+    /* Gold bottom rule (bottom so it visually bridges into the card area) */
+    .site-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light), var(--accent));
+    }
+
+    .header-inner { position: relative; }
+
+    .header-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: #fff;
+    }
+
+    .header-subtitle {
+      margin-top: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 400;
+      /* rgba(255,255,255,0.65) on --primary ≈ 6:1 (large-text threshold ✓) */
+      color: rgba(255, 255, 255, 0.70);
+      letter-spacing: 0.01em;
+    }
+
+    /* ─────────────────────────────────────────
+       Main
+    ───────────────────────────────────────── */
+    .main {
+      flex: 1;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.75rem 1.5rem 4rem;
+    }
+
+    /* ─────────────────────────────────────────
+       Card grid — balanced 2×2
+    ───────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* ─────────────────────────────────────────
+       Role card (active)
+    ───────────────────────────────────────── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--card-border);
+      box-shadow: var(--shadow);
+      padding: 2rem 1.75rem 1.6rem;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      transition:
+        transform        0.25s var(--ease),
+        box-shadow       0.25s var(--ease),
+        border-color     0.25s var(--ease);
+    }
+
+    /*
+      Signature element: large italic initial letter as a typographic watermark.
+      Pulled from data-initial; uses the same display face as card titles.
+      Purely decorative — pointer-events off, aria-hidden via CSS only.
+    */
+    .card::before {
+      content: attr(data-initial);
+      position: absolute;
+      right: -0.12em;
+      bottom: -0.18em;
+      font-family: var(--font-display);
+      font-size: 9rem;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1;
+      color: var(--primary);
+      opacity: 0.05;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity 0.25s var(--ease);
+    }
+
+    /* Sliding accent bar on hover/focus */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.28s var(--ease);
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-up);
+      border-color: var(--primary);
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before { opacity: 0.10; }
+
+    .card:hover::after,
+    .card:focus-visible::after  { transform: scaleX(1); }
+
+    /*
+      Focus ring: --primary on --bg gives ~10.8:1 ✓ (WCAG 1.4.11 Non-text Contrast)
+    */
+    .card:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+    }
+    .card:focus { outline: none; }
+
+    /* ─── Card internals ─── */
+    .card-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-ink);    /* 5.8:1 on white ✓ */
+      margin-bottom: 0.55rem;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--primary);       /* 16:1 on white ✓ */
+      margin-bottom: 0.55rem;
+    }
+
+    .card-desc {
+      font-family: var(--font-body);
+      font-size: 0.93rem;
+      line-height: 1.55;
+      color: var(--text-mid);      /* 8:1 on white ✓ */
+      flex: 1;
+    }
+
+    .card-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.3rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--accent-ink);    /* 5.8:1 on white ✓ */
+      transition: gap 0.2s var(--ease);
+    }
+
+    .card:hover .card-cta,
+    .card:focus-visible .card-cta { gap: 0.65rem; }
+
+    .cta-arrow { font-size: 1rem; line-height: 1; }
+
+    /* ─────────────────────────────────────────
+       Disabled card (Returnees — link pending)
+    ───────────────────────────────────────── */
+    .card--disabled {
+      background: var(--disabled-bg);
+      border-color: var(--disabled-border);
+      box-shadow: none;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .card--disabled::before {
+      color: var(--disabled-text);
+      opacity: 0.07;
+    }
+
+    .card--disabled::after { display: none; }
+
+    /* disabled-text on disabled-bg ≈ 4.9:1 ✓ */
+    .card--disabled .card-eyebrow { color: var(--disabled-text); }
+    .card--disabled .card-title   { color: var(--disabled-text); }
+    .card--disabled .card-desc    { color: var(--disabled-text); }
+    .card--disabled .card-cta     { display: none; }
+
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.3rem;
+      padding: 0.32rem 0.75rem;
+      background: rgba(86, 96, 116, 0.08);
+      border: 1.5px solid var(--disabled-border);
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--disabled-text); /* 4.9:1 on --disabled-bg ✓ */
+    }
+
+    .coming-soon-badge svg { flex-shrink: 0; }
+
+    /* ─────────────────────────────────────────
+       Footer — white 80% on navy ≈ 8:1 ✓
+    ───────────────────────────────────────── */
+    .site-footer {
+      background: var(--primary);
+      color: rgba(255, 255, 255, 0.80);
+      text-align: center;
+      padding: 1.3rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      letter-spacing: 0.02em;
+      border-top: 1px solid rgba(255,255,255,0.10);
+    }
+
+    /* ─────────────────────────────────────────
+       Reduced motion
+    ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      .card,
+      .card::before,
+      .card::after,
+      .card-cta { transition: none; }
+    }
+
+    /* ─────────────────────────────────────────
+       Responsive — tablet / narrow desktop
+       (≤720px: drop to single column)
+    ───────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─────────────────────────────────────────
+       Responsive — mobile (≤560px)
+    ───────────────────────────────────────── */
+    @media (max-width: 560px) {
+      .logo-bar     { padding: 0.9rem 1.25rem; }
+      .xu-logo      { height: 40px; }
+      .site-header  { padding: 1.9rem 1.25rem 1.75rem; }
+      .main         { padding: 1.75rem 1rem 3rem; }
+      .card {
+        min-height: 185px;
+        padding: 1.5rem 1.25rem 1.35rem;
+      }
+      .card::before { font-size: 7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ── WHITE LOGO BAR ─────────────────────── -->
+  <div class="logo-bar">
+    <img
+      src="assets/xu-logo.png"
+      alt="Xavier University — Ateneo de Cagayan"
+      class="xu-logo"
+    />
+  </div>
+
+  <!-- ── NAVY HERO BANNER ───────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <h1 class="header-title">Enrollment Portal</h1>
+      <p class="header-subtitle">Select your role below to proceed to the correct system.</p>
+    </div>
+  </header>
+
+  <!-- ── MAIN ──────────────────────────────── -->
+  <main class="main" id="main-content">
+    <div class="card-grid" role="list" aria-label="Portal access by role">
+
+      <!-- New Students / Applicants -->
+      <a
+        class="card"
+        href="https://xu-apply.mastersofterp.com/ApplicationLogin/Index/XU"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="New Students and Applicants — opens the XU Application Portal in a new tab"
+        data-initial="N"
+        role="listitem"
+      >
+        <span class="card-eyebrow">Kindergarten – Postgrad</span>
+        <h2 class="card-title">New Students<br>/ Applicants</h2>
+        <p class="card-desc">
+          First-time applicants for any program level — from Kindergarten
+          through Postgraduate.
+        </p>
+        <span class="card-cta" aria-hidden="true">
+          Go to Application Portal
+          <span class="cta-arrow">→</span>
+        </span>
+      </a>
+
+      <!-- Continuing Students -->
+      <a
+        class="card"
+        href="https://sisstudent.mastersofterp.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Continuing Students — opens the Student Information System in a new tab"
+        data-initial="C"
+        role="listitem"
+      >
+        <span class="card-eyebrow">Basic Ed – Post Grad</span>
+        <h2 class="card-title">Continuing<br>Students</h2>
+        <p class="card-desc">
+          Currently enrolled students across all program levels — Basic
+          Education through Postgraduate.
+        </p>
+        <span class="card-cta" aria-hidden="true">
+          Go to Student Portal
+          <span class="cta-arrow">→</span>
+        </span>
+      </a>
+
+      <!-- Returnees (disabled — link pending) -->
+      <div
+        class="card card--disabled"
+        role="listitem"
+        aria-disabled="true"
+        aria-label="Returnees — portal link not yet available"
+        data-initial="R"
+      >
+        <span class="card-eyebrow">Returning Students</span>
+        <h2 class="card-title">Returnees</h2>
+        <p class="card-desc">
+          Students returning to the university after a leave of absence
+          or gap in enrollment.
+        </p>
+        <span class="coming-soon-badge" aria-live="polite">
+          <!-- clock icon -->
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M6 3.5V6.25L7.75 7.5" stroke="currentColor" stroke-width="1.4"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Link coming soon
+        </span>
+      </div>
+
+      <!-- Faculty and Staff -->
+      <a
+        class="card"
+        href="https://sis.mastersofterp.com/Login/Index"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Faculty and Staff — opens the Faculty and Staff Portal in a new tab"
+        data-initial="F"
+        role="listitem"
+      >
+        <span class="card-eyebrow">Employees</span>
+        <h2 class="card-title">Faculty<br>&amp; Staff</h2>
+        <p class="card-desc">
+          Teaching staff, faculty members, and administrative personnel
+          of the university.
+        </p>
+        <span class="card-cta" aria-hidden="true">
+          Go to Staff Portal
+          <span class="cta-arrow">→</span>
+        </span>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- ── FOOTER ────────────────────────────── -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Xavier University — Ateneo de Cagayan. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
